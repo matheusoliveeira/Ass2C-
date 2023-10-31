@@ -1,85 +1,69 @@
 #include <iostream>
-#include <string>
-using namespace std;
-
-class Student{
-private:
-    std::string Name;
-    int numCourses;
-    std::string* courseList;
-public:
-    // A default constructor (i.e., creates a student object without a name and an empty course list).
-    Student() : Name(""), numCourses(0), courseList(nullptr) {};
-
-    // The “big three / rule of three” (i.e., copy constructor, assignment operator, destructor).
-    // https://stackoverflow.com/questions/4172722/what-is-the-rule-of-three
-    // copy constructor
-    Student(const Student& that) : Name(that.Name), numCourses(that.numCourses), courseList(that.courseList)
-    {
-    }
-    // copy assignment operator
-    Student& operator = (const Student& that)
-    {
-        Name = that.Name;
-        numCourses = that.numCourses;
-        courseList = that.courseList;
-        return *this;
-    }
-    // destructor
-    ~Student()
-    {
-        delete[] courseList;
-        cout << "destructor called" << endl;
-    };
-
-    void setName(const string &name) {
-        Name = name;
-    }
-
-    //An add function that will allow courses to be added to a student’s list of courses.
-    void addCourse(const std::string& courseName) {
-        // Create a new array with space for one more course
-        std::string* newCourseList = new std::string[numCourses +1];
-
-        // Copy the existing courses to the new array
-        for (int i=0; i < numCourses; ++i) {
-            newCourseList[i] = courseList[i];
-        }
-
-        // Add the new course to the end of the new array
-        newCourseList[numCourses] = courseName;
-
-        // Deallocate the old courseList
-        delete[] courseList;
-
-        // Update the courseList and numCourses
-        courseList = newCourseList;
-        numCourses++;
-    }
-
-    // Member function to display the enrolled courses
-    void displayCourses() {
-        std::cout << "Student: " << Name << std::endl;
-        std::cout << "Enrolled courses: " << std::endl;
-        for (int i = 0; i < numCourses; ++i) {
-            std::cout << courseList[i] << std::endl;
-        }
-    }
-
-}; // end class Student
+#include "Student.h"
 
 int main() {
-    Student myStudent;
-    myStudent.setName("Matheus");
+    bool keepRunning = true;  // Variable to control the program loop
 
+    while (keepRunning) {
+        Student S1;  // Creating a Student object
+        string nameS1; // Variable to store the name of the first student
+        string courseName; // Variable to store course names
 
-    // Add courses to the student's list
-    myStudent.addCourse("Math");
-    myStudent.addCourse("Physics");
-    myStudent.addCourse("History");
+        cout << "\nPlease insert your name:" << endl;
+        getline(cin, nameS1);
+        S1.setName(nameS1); // Setting the name for the first student
 
-    // Display the enrolled courses
-    myStudent.displayCourses();
+        while (true) {
+            cout << "Please insert a course you intend to enter or press 'Q' to quit?" << endl;
+            getline(cin, courseName);
+
+            // Check if the user typed 'Q' to quit entering courses
+            if (courseName == "Q") {
+                cout << "Quitting..\n" << endl;
+                break; // Exit the course entry loop
+            } else if (courseName.empty()) {
+                cout << "This field cannot be empty" << endl;
+                continue;
+            }
+
+            S1.addCourse(courseName); // Add courses to the first student
+        }
+
+        // Display information for the first student
+        S1.displayInfo();
+
+        // Ask for the name of the second student
+        Student S2(S1); // Creating a second student with the information from the first
+        string nameS2;
+        cout << "\nPlease insert your name:" << endl;
+        getline(cin, nameS2);
+        S2.setName(nameS2); // Setting the name for the second student
+
+        // Print information for the second student
+        S2.displayInfo();
+
+        // Display the first student's information after resetting courses
+        S1.resetCourses(); // Resetting the first student's course information
+        S1.displayInfo(); // Displaying the first student's updated information
+
+        // Display information for the second student (deep copy)
+        S2.displayInfo();
+
+        // Creating a third student by assignment
+        Student S3;
+        S3 = S2; // Assigning the second student's information to the third student
+
+        S3.displayInfo(); // Displaying the third student's information
+
+        char choice;
+        cout << "Do you want to enter another set of students? (Y/N): ";
+        cin >> choice;
+
+        // Check user's choice to continue or exit the program
+        if (toupper(choice) != 'Y') {
+            keepRunning = false; // Exiting the program loop
+        }
+    }
 
     return 0;
 }
