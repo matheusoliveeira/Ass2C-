@@ -1,4 +1,4 @@
-C:\Users\mathe\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\232.9559.58\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" -S C:\Users\mathe\CLionProjects\Ass2C- -B C:\Users\mathe\CLionProjects\Ass2C-\cmake-build-debug
+C:\Users\W0471251\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" -S C:\Users\W0471251\CLionProjects\Ass2C- -B C:\Users\W0471251\CLionProjects\Ass2C-\cmake-build-debug
 -- Configuring done (0.1s)
--- Generating done (0.1s)
--- Build files have been written to: C:/Users/mathe/CLionProjects/Ass2C-/cmake-build-debug
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/W0471251/CLionProjects/Ass2C-/cmake-build-debug
